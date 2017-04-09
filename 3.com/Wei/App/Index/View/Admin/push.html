@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+input { height: 35px; line-height: 35px; border: 1px solid #ccc; padding: 0px 5px; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+  
+  
+  <div class="am-u-md-4">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">手动推送</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <form class="am-form am-form-horizontal" action="{:U('index/admin/add_push')}" method="post" >
+          
+           <div class="am-form-group">
+              <label for="doc-ipt-3" name="k" class="am-u-sm-3 am-form-label">用户</label>
+              <div class="am-u-sm-9">
+                <select id="cid" name="type" class="form-control" size="1">
+                  <option value="0">未充值用户</option>
+                  <option value="1">已充值用户</option>
+                  <option value="">不限制</option>
+                </select>
+              </div>
+            </div>
+            
+             
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-3 am-form-label">标题</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="title" id="doc-ipt-3" placeholder="输入标题">
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-3 am-form-label">描述</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="description" id="doc-ipt-3" placeholder="输入描述">
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-3 am-form-label">图片外链</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="picurl" id="doc-ipt-3" placeholder="输入图片外链">
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-3 am-form-label">点击网址</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="url" id="doc-ipt-3" placeholder="可设置为空，为空默认是对应公众号的入口网址">
+                <br />
+                为空默认设置自定义菜单网址
+              </div>
+            </div>
+            
+            
+
+            <div class="am-form-group">
+              <div class="am-u-sm-9 am-u-sm-offset-3">
+                <button type="submit" class="am-btn am-btn-default">推送</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    
+  
+    <div class="am-u-md-8">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">推送记录</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <div class="weixin_list" style="padding-left:20px;">
+            <div class="weixin am-g"  >
+              <table class="am-table">
+                <thead>
+                  <tr>
+                    <th style="width:4%"> ID</th>
+                    <th>推送信息</th>
+                    <th style="width:10%">开始时间</th>
+                    <th>结束时间</th>
+                      <th>成功条数</th>
+                       <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody id="app">
+                  <?php foreach($push  as $v): ?>
+                  <tr>
+                        <td >{$v['id']}</td>
+                        <td><?php
+                          $info = json_decode($v['info'],true);
+                        ?>
+               
+                            标题:{$info['title']}<br />
+                            描述:{$info['description']}<br />
+                            图片:{$info['picurl']}<br />
+                            链接: {$info['url']}
+         
+                        </td>
+                        <td ><?php echo date("Y-m-d H:i:s",$v['time'])?></td>
+                        <td ><?php echo date("Y-m-d H:i:s",$v['etime'])?></td>
+                        <td>{$v['num']}</td>
+                        <td>
+                             <?php if($v['status'] == 0){?>
+                               进行中
+                             <?php }else{?>
+                               结束
+                             <?php }?>
+
+                        </td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+</body>
+</html>

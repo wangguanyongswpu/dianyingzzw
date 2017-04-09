@@ -1,0 +1,204 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+input { height: 35px; line-height: 35px; border: 1px solid #ccc; padding: 0px 5px; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+    <div class="am-u-md-8">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">公众号列表</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <div class="weixin_list">
+            <div class="weixin am-g">
+              <div class="right am-u-md-12">
+               <?php foreach ($weixin as $v):?>
+                 <form class="am-form am-form-horizontal" action="{:U('index/admin/save_weixin')}" method="post" >
+                   <input type="hidden" name="id" value="{$v['id']}">
+                    <div class="am-form-group">
+                      <label for="doc-ipt-3"class="am-u-sm-2 am-form-label">键值:</label>
+                      <div class="am-u-sm-10">
+                        <input type="text"  name="k" id="doc-ipt-3" value="{$v['k']}" placeholder="输入键值">
+                      </div>
+                    </div>
+                    <div class="am-form-group">
+                      <label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">名称</label>
+                      <div class="am-u-sm-10">
+                        <input type="text" id="doc-ipt-3" name="name"  value="{$v['name']}" placeholder="输入公众号名称">
+                      </div>
+                    </div>
+                    <div class="am-form-group">
+                      <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">appid</label>
+                      <div class="am-u-sm-10">
+                        <input type="text"  name="app_id" id="doc-ipt-pwd-2" value="{$v['app_id']}" placeholder="请输入appid">
+                      </div>
+                    </div>
+                     <div class="am-form-group">
+                      <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">secret</label>
+                      <div class="am-u-sm-10">
+                        <input type="text"  name="secret" id="doc-ipt-pwd-2" value="{$v['secret']}" placeholder="请输入appid">
+                      </div>
+                    </div>
+                               
+                    <div class="am-form-group">
+                      <label for="doc-ipt-pwd-2" name="secret" class="am-u-sm-2 am-form-label">taken</label>
+                      <div class="am-u-sm-10">
+                        <input type="text" name="token" id="doc-ipt-pwd-2" value="{$v['token']}"  placeholder="请设置密钥">
+                      </div>
+                    </div>
+
+                    <div class="am-form-group">
+                      <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">网址</label>
+                      <div class="am-u-sm-10">
+                        <input type="text" name="url" id="doc-ipt-pwd-2" value="{$v['url']}" placeholder="设置一个网址">
+                      </div>
+                    </div>
+
+                  <div class="am-form-group">
+                  <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label"></label>
+                  <div class="am-u-sm-10">
+                  <div class="am-panel am-panel-default">
+                  <div class="am-panel-hd">公众号配置</div>
+                  <div class="am-panel-bd">
+                  api接口:
+                  {:U("/index/api",'','',$v['url'])}?gid={$v['k']}
+                  <br />
+                  自定义菜单:
+                  {:U("/index/index",'','',$v['url'])}?gid={$v['k']}
+                  </div>                       
+
+                  </div>
+                  </div>        
+
+                  </div>
+
+
+                    <div class="am-form-group">
+                      <div class="am-u-sm-10 am-u-sm-offset-2">
+                        <button type="submit" class="am-btn am-btn-default">修改</button>
+                        <a href="{:U('index/admin/del_weixin',array('id'=>$v['id']))}" class="am-btn am-btn-default" >删除</a>
+                      </div>
+                    </div>
+                  </form>
+              <?php endforeach; ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="am-u-md-4">
+
+       
+
+
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">添加公众号</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <form class="am-form am-form-horizontal" action="{:U('index/admin/add_weixin')}" method="post" >
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-2 am-form-label">键值</label>
+              <div class="am-u-sm-10">
+                <input type="text"  name="k" id="doc-ipt-3" placeholder="输入键值">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">名称</label>
+              <div class="am-u-sm-10">
+                <input type="text" id="doc-ipt-3" name="name" placeholder="输入公众号名称">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">appid</label>
+              <div class="am-u-sm-10">
+                <input type="text"  name="app_id" id="doc-ipt-pwd-2" placeholder="请输入appid">
+              </div>
+            </div>
+             <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">secret</label>
+              <div class="am-u-sm-10">
+                <input type="text"  name="secret" id="doc-ipt-pwd-2" placeholder="请输入appid">
+              </div>
+            </div>
+                       
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" name="secret" class="am-u-sm-2 am-form-label">taken</label>
+              <div class="am-u-sm-10">
+                <input type="text" name="token" id="doc-ipt-pwd-2" placeholder="请设置密钥">
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">网址</label>
+              <div class="am-u-sm-10">
+                <input type="text" name="url" id="doc-ipt-pwd-2" placeholder="设置一个网址">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <div class="am-u-sm-10 am-u-sm-offset-2">
+                <button type="submit" class="am-btn am-btn-default">添加</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+<div class="am-panel am-panel-default">
+  <div class="am-panel-hd">设置自定义菜单</div>
+  <div class="am-panel-bd" style="height:170px;">
+   <form action="{:U('index/admin/memu')}" method="post">
+       <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" name="secret" class="am-u-sm-2 am-form-label">菜单名称</label>
+              <div class="am-u-sm-10">
+                <input type="text" name="memu" id="doc-ipt-pwd-2" value="激情小视频(18禁)" placeholder="菜单名称">
+              </div>
+            </div>
+
+ 
+       <div class="am-form-group">
+              <div class="am-u-sm-10 am-u-sm-offset-2">
+                <button type="submit" class="am-btn am-btn-default">添加</button>
+              </div>
+                </div>
+</form>
+
+ 
+
+  </div>
+</div>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+</body>
+</html>

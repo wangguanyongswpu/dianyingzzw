@@ -1,0 +1,322 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style type="text/css">
+  .am-form-group select{
+    width: 50%;
+    float: left;
+  }
+  .am-form-group p{
+    margin:0;
+    color:#123132;
+  }
+  .am-u-md-8{
+    width: 46.66666667%;
+  }
+  .am-u-md-4{
+    width: 53.33333333%;
+  }
+</style>
+</head>
+<body>
+<include file="slide" />
+  
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small></small></div>
+    </div>
+    <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+      <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br/>
+        关注用户<br/>
+        {$gznum}</a></li>
+      <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>
+        取消关注<br/>
+        {$qxnum}</a></li>
+      <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>
+        今日注册<br/>
+        {$jinri_num}</a></li>
+      <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>
+        24小时登陆用户<br/>
+        {$h24_num}</a></li>
+    </ul>
+
+    <div class="am-g">
+      
+      <div class="am-u-md-8">
+        <div class="am-panel am-panel-default">
+          <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}">定时任务<span class="am-icon-chevron-down am-fr" ></span></div>
+          <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+                  <table class="am-table">
+                <thead>
+                  <tr>
+                    <th style="width:4%"> ID</th>
+                    <th>任务</th>
+                    <th>说明</th>
+                    <th>上次结束时间</th>
+                    <th>本次执行耗时</th>
+                    <th>本次开始时间</th>
+                    <th>超时时间</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody id="app">
+                  <?php foreach($task  as $v): ?>
+                  <tr>
+                        <td >{$v['id']}</td>
+ <td >
+ <?php echo $v['name'];?>
+                        </td>
+                         <td >
+ <?php echo $v['info'];?>
+                        </td>
+
+                        <td ><?php echo date("Y-m-d H:i:s",$v['lasttime'])?></td>
+                        <td>{$v['consuming']}毫秒</td>
+                        <td ><?php echo date("Y-m-d H:i:s",$v['thistime'])?></td>
+                        <td> 
+                           <?php if($v['overtime'] == 0){?>
+                               不限制
+                           <?php }else{?>
+                              <?php echo $v['overtime']; ?>分钟
+                           <?php }?>
+                        </td>
+                        <td><?php if($v['status'] == 0){?>
+                               等待触发
+                             <?php }else{?>
+                               进行中
+                             <?php }?>
+                        </td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+      <div class="am-u-md-4">
+        <div class="am-panel am-panel-default" style="height:auto;overflow: auto;">
+          <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}">系统设置<span class="am-icon-chevron-down am-fr" ></span></div>
+          <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+       <form class="am-form am-form-horizontal" action="{:U('index/admin/site')}" method="post" >
+
+            <!--div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">平台识别名称</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="WEB_NAME" id="doc-ipt-3" placeholder="区分维护平台" value="<?php echo C('WEB_NAME');?>">
+              </div>
+            </div>
+
+
+            <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">维护人手机</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="YUNWEI_TEL" id="doc-ipt-3" placeholder="输入手机号码" value="<?php echo C('YUNWEI_TEL');?>">
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">CPS网址</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="CPS_API_URL" id="doc-ipt-3" placeholder="输入CPS网址 带http://" value="<?php echo C('CPS_API_URL');?>" >
+              </div>
+            </div-->
+         
+         
+         
+            
+            <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">系统1-疯狂赚</label>
+              <div class="am-u-sm-9">
+                <!-- <input type="text"  name="PAY_API_URL" id="doc-ipt-3" placeholder="输入支付网址 带http://" value="<?php echo C('PAY_API_URL');?>"  > -->
+                <select name="paydomain1" id="paydomain1" onchange="changedomain1('paydomain1',1)">
+                  <volist name="paydomains[1]" id="v">
+                  <option value="{$v['id']}" title="{$v['paydomain']}" <if condition="$v.status eq 1">selected </if>>{$v['server']}</option>
+                  </volist>
+                </select>
+                <select name="payinfer1" id="payinfer1" onchange="changeinfer1('payinfer1',1)">
+                  <volist name="payinfers[1]" id="v">
+                  <option value="{$v['id']}" title="{$v['infer']}" <if condition="$v.status eq 1">selected </if>>{$v['name']}</option>
+                  </volist>
+                </select>
+                <p style="margin-top: 50px;"><span style="float: left; line-height: 36px;">测试地址1：</span> <span id="tt1" style="display: none;">http://<span id="test1">
+                  <volist name="paydomains[1]" id="v">
+                    <if condition="$v.status eq 1">{$v['paydomain']} </if>
+                  </volist>
+                </span>/Pay/<span id='testinfer1'>
+                  <volist name="payinfers[1]" id="v">
+                    <if condition="$v.status eq 1">{$v['infer']} </if>
+                  </volist>
+                </span></span>  
+                <input style="width: 60%;float: left; margin-right: 10px;" type="text" name="cont1" id="content1" value='' />
+                <a onclick="copylink(1)">复制</a></p>
+
+              </div>
+            </div>    
+            <script type="text/javascript">
+              window.onload = function(){ 
+                var tt1 = $("#tt1").text();
+                $("#content1").val(tt1.replace(/\s/g, ""));
+                 var tt2 = $("#tt2").text();
+                $("#content2").val(tt2.replace(/\s/g, ""));
+                 var tt3 = $("#tt3").text();
+                $("#content3").val(tt3.replace(/\s/g, ""));
+                var tt4 = $("#tt4").text();
+                $("#content4").val(tt4.replace(/\s/g, ""));
+              } 
+              function changedomain1(id,i){
+                var xx = $("#"+id).find("option:selected").attr("title"); 
+                $('#test'+i).text(xx);
+                $("#content"+i).val($("#tt"+i).text().replace(/\s/g, ""));
+              }
+              function changeinfer1(id,i){
+                var xx1 = $("#"+id).find("option:selected").attr("title"); 
+                $('#testinfer'+i).text(xx1);
+                $("#content"+i).val($("#tt"+i).text().replace(/\s/g, ""));
+              }
+              function copylink(i){
+                var con = document.getElementById("content"+i);
+                con.select();
+                document.execCommand("Copy"); // 执行浏览器复制命令
+                alert("已复制好，可贴粘。");
+              }
+            </script>
+         
+         <!-- 
+              <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">系统2-悦涩吧</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="PAY_API_URL2" id="doc-ipt-3" placeholder="输入支付网址 带http://" value="<?php echo C('PAY_API_URL2');?>"  > 
+                <select name="paydomain2"  id="paydomain2" onchange="changedomain1('paydomain2',2)">
+                  <volist name="paydomains[2]" id="v">
+                  <option value="{$v['id']}" title="{$v['paydomain']}" <if condition="$v.status eq 1">selected </if>>{$v['server']}</option>
+                  </volist>
+                </select>
+                <select name="payinfer2" id="payinfer2" onchange="changeinfer1('payinfer2',2)">
+                  <volist name="payinfers[2]" id="v">
+                  <option value="{$v['id']}" title="{$v['infer']}"  <if condition="$v.status eq 1">selected </if>>{$v['name']}</option>
+                  </volist>
+                </select>
+                <p style="margin-top: 50px;"><span style="float: left; line-height: 36px;">测试地址2：</span><span id="tt2" style="display: none;">http://<span id="test2">
+                  <volist name="paydomains[2]" id="v">
+                    <if condition="$v.status eq 1">{$v['paydomain']} </if>
+                  </volist>
+                </span>/PayApi/<span id='testinfer2'>
+                  <volist name="payinfers[2]" id="v">
+                    <if condition="$v.status eq 1">{$v['infer']} </if>
+                  </volist>
+                </span></span>
+                <input style="width: 60%;float: left; margin-right: 10px;" type="text" name="cont2" id="content2" value='' />
+                <a onclick="copylink(2)">复制</a></p>
+                </p>
+              </div>
+            </div>           
+         
+              <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">系统3-凌晨影院 </label>
+              <div class="am-u-sm-9">
+                <!-- <input type="text"  name="PAY_API_URL3" id="doc-ipt-3" placeholder="输入支付网址 带http://" value="<?php echo C('PAY_API_URL3');?>"  > 
+                <select name="paydomain3" id="paydomain3"  onchange="changedomain1('paydomain3',3)">
+                  <volist name="paydomains[3]" id="v">
+                  <option value="{$v['id']}" title="{$v['paydomain']}" <if condition="$v.status eq 1">selected </if>>{$v['server']}</option>
+                  </volist>
+                </select>
+                <select name="payinfer3" id="payinfer3" onchange="changeinfer1('payinfer3',3)">
+                  <volist name="payinfers[3]" id="v">
+                  <option value="{$v['id']}" title="{$v['infer']}"  <if condition="$v.status eq 1">selected </if>>{$v['name']}</option>
+                  </volist>
+                </select>
+                <p style="margin-top: 50px;"><span style="float: left; line-height: 36px;">测试地址3：</span><span id="tt3" style="display: none;">http://<span id="test3">
+                  <volist name="paydomains[3]" id="v">
+                    <if condition="$v.status eq 1">{$v['paydomain']} </if>
+                  </volist>
+                </span>/PayApi/<span id='testinfer3'>
+                  <volist name="payinfers[3]" id="v">
+                    <if condition="$v.status eq 1">{$v['infer']} </if>
+                  </volist>
+                </span></span>
+                <input style="float: left; width: 60%;margin-right: 10px;" type="text" name="cont3" id="content3" value='' />
+                <a onclick="copylink(3)">复制</a></p>
+                </p>
+              </div>
+            </div>
+
+
+            <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">系统4-激情影院 </label>
+              <div class="am-u-sm-9">
+                <!-- <input type="text"  name="PAY_API_URL3" id="doc-ipt-3" placeholder="输入支付网址 带http://" value="<?php echo C('PAY_API_URL3');?>"  > 
+                <select name="paydomain4" id="paydomain4"  onchange="changedomain1('paydomain4',4)">
+                  <volist name="paydomains[4]" id="v">
+                  <option value="{$v['id']}" title="{$v['paydomain']}" <if condition="$v.status eq 1">selected </if>>{$v['server']}</option>
+                  </volist>
+                </select>
+                <select name="payinfer4" id="payinfer4" onchange="changeinfer1('payinfer4',4)">
+                  <volist name="payinfers[4]" id="v">
+                  <option value="{$v['id']}" title="{$v['infer']}"  <if condition="$v.status eq 1">selected </if>>{$v['name']}</option>
+                  </volist>
+                </select>
+                <p style="margin-top: 50px;"><span style="float: left; line-height: 36px;">测试地址4：</span><span id="tt4" style="display: none;">http://<span id="test4">
+                  <volist name="paydomains[4]" id="v">
+                    <if condition="$v.status eq 1">{$v['paydomain']} </if>
+                  </volist>
+                </span>/PayApi/<span id='testinfer4'>
+                  <volist name="payinfers[4]" id="v">
+                    <if condition="$v.status eq 1">{$v['infer']} </if>
+                  </volist>
+                </span></span>
+                <input style="float: left; width: 60%;margin-right: 10px;" type="text" name="cont4" id="content4" value='' />
+                <a onclick="copylink(4)">复制</a></p>
+                </p>
+              </div>
+            </div>        
+         -->
+         
+          <div class="am-form-group">
+              <label for="doc-ipt-4"class="am-u-sm-3 am-form-label" style="font-size:12px;">自动推送间隔</label>
+              <div class="am-u-sm-9">
+                <input type="text"  name="AUTO_PUSH_TIME" id="doc-ipt-3" placeholder="自动推送间隔(单位小时)" value="<?php echo C('AUTO_PUSH_TIME');?>">
+              </div>
+            </div>
+
+
+
+            <div class="am-form-group">
+              <div class="am-u-sm-9 am-u-sm-offset-3">
+                <button type="submit" class="am-btn am-btn-default">保存</button>
+              </div>
+            </div>
+          </form>
+
+   
+
+
+
+               
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- content end --> 
+  
+</div>
+
+<include file="foot" />
+
+
+</body>
+</html>

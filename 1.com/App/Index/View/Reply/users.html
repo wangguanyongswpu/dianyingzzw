@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta charset="UTF-8" />
+    <title>群成员详情</title>
+    <link rel="stylesheet" type="text/css" href="http://www.hiliuxue.com/extdata/WXdetail-1/css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="http://www.hiliuxue.com/extdata/WXdetail-1/css/icon/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="http://www.hiliuxue.com/extdata/WXdetail-1/css/index.css">
+</head>
+<style type="text/css">
+    #pop,#pop2{
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        background-color: rgba(0, 0, 0, .7);
+        z-index: 9;
+        display: none;
+    }
+    .reminderbox{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -103px;
+        margin-left: -110px;
+        width: 220px;
+        height: 206px;
+        padding: 25px 0 ;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+    .reminder1{
+        margin-left: 20px;
+    }
+    .reminder2{
+        border-top: 1px solid #999;
+        height: 40px;
+        line-height: 45px;
+        text-align: center;
+        color: #00a5e0;
+        font-size: 16px;
+        width: 50%;
+        float: right;
+    }
+    .qunzhu{
+        font-size: 16px;
+        color: #000;
+        font-weight: 600;
+    }
+    .share{
+        color: #666;
+        margin-bottom: 5px;
+    }
+    .pop2{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 240px;
+        height: 120px;
+        margin-left: -120px;
+        margin-top: -60px;
+        padding: 20px 0;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+    .pop2 p:nth-of-type(1){
+        padding: 0 20px;
+        color: #000;
+    }
+    #number span {
+        position: absolute;
+        bottom: 0;
+        left: .4rem;
+        color: #fff;
+        margin-bottom: 0;
+        font-size: .7rem;
+    }
+</style>
+<body>
+<div id="pop" >
+
+</div>
+<div id="pop2" onclick="closereminder2()">
+
+</div>
+<div id="container">
+    <div id="member">
+        <ul class="men-list">
+            <!-- <li><img src="http://www.hiliuxue.com/extdata/WXdetail-1/image/1.jpg" alt="" /><span>一场暧昧，黯然开花ミ</span></li> -->
+            <div id="list"></div>
+            <!-- <li><img class="last"  src="http://www.hiliuxue.com/extdata/WXdetail-1/image/66.jpg" alt="" /><span></span></li> -->
+
+        </ul>
+        <!-- <div id="more" >查看全部成员</div> -->
+    </div>
+    <!-- <div id="wxq">
+        <ul class="wxq">
+            <li ><span class="wxq-name">群聊名称</span> <span class="join">夜夜笙歌</span> <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li ><span class="wxq-name">群二维码</span> <span class="join icon iconfont icon-erweima"></span> <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li class="gonggao" onclick="openreminder2()"><span class="wxq-name">群公告</span>  <span class="mui-icon changename mui-icon-forward"></span>
+                <p><i>资源共享群&nbsp;</i><i>&nbsp;空姐精品&nbsp;</i><i>&nbsp;偷拍精品&nbsp;</i><i>&nbsp;大学生裸贷&nbsp;</i><i>&nbsp;岛国精品&nbsp;</i></p>
+            </li>
+        </ul>
+    </div> -->
+    <!-- <div id="message">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell" class="wxq-name">
+                <span class="wxq-name">消息免打扰</span>
+                <div class="mui-switch mui-switch-mini mui-active ">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+            <li class="mui-table-view-cell">
+                <span class="wxq-name">置顶聊天</span>
+                <div class="mui-switch mui-switch-mini  ">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+            <li class="mui-table-view-cell">
+                <span class="wxq-name">保存到通讯录</span>
+                <div class="mui-switch mui-switch-mini  ">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+        </ul>
+    </div> -->
+    <!-- <div id="me">
+        <ul class="mui-table-view">
+            <li ><span class="wxq-name">我在本群的昵称</span> <span class="join">会员498号</span> <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li class="mui-table-view-cell">
+                <span class="wxq-name">显示群成员昵称</span>
+                <div class="mui-switch mui-switch-mini  ">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+        </ul>
+    </div> -->
+
+    <!-- <div id="find">
+        <ul class="wxq">
+            <li ><span class="wxq-name">聊天文件</span>  <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li ><span class="wxq-name">查找聊天内容</span>  <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li ><span class="wxq-name">设置当前聊天内容</span>    <span class="mui-icon changename mui-icon-forward"></span></li>
+            <li ><span class="wxq-name">投诉</span>    <span class="mui-icon changename mui-icon-forward"></span></li>
+        </ul>
+    </div>
+    <div class="button"><p type="button">删除并退出群聊</p></div> -->
+</div>
+<script type="text/javascript" src="http://www.hiliuxue.com/extdata/WXdetail-1/js/mui.min.js"></script>
+<script type="text/javascript" src="http://www.hiliuxue.com/extdata/WXdetail-1/js/jquery-1.8.2.min.js"></script>
+<!-- <script type="text/javascript" src="http://www.hiliuxue.com/extdata/WXdetail-1/js/payWXdetail.js"></script> -->
+<script type="text/javascript" >
+    mui.init();
+    var ArrImg = [
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/1.jpg", "name":"旧城空念"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/2.jpg", "name":"旧城空念"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/3.jpg", "name":"活的好累"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/4.jpg", "name":"我有酒还有旧友"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/5.jpg", "name":"记忆承载将来"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/6.jpg", "name":"永远回不去、"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/7.jpg", "name":"当孤单生烟时"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/8.jpg", "name":"〆倾听、心跳的旋律り"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/9.jpg", "name":"黎夕旧梦"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/10.jpg", "name":"良人欲行泪先流！"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/11.jpg", "name":"︶﹌被遗忘的爱"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/12.jpg", "name":"2222"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/13.jpg", "name":"海市，蜃楼。"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/14.jpg", "name":"奈何桥〆﹏丶等你"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/15.jpg", "name":"凉城以北是无尾声的海。"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/16.jpg", "name":"@凉宸"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/17.jpg", "name":"余音未静﹌"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/18.jpg", "name":"白话情书L"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/19.jpg", "name":"暖心姑娘的忧伤"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/20.jpg", "name":"爱不单行。"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/21.jpg", "name":"、时光风靡了谁的旧背影"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/22.jpg", "name":"三生一梦、"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/23.jpg", "name":"ら如果没有看透"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/24.jpg", "name":"一梦两三年"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/25.jpg", "name":"忍住ヽ不哭"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/26.jpg", "name":"歌枕肩"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/27.jpg", "name":"逃不出的未眠蓝鸟"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/28.jpg", "name":"身靠冷冷墙。"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/29.jpg", "name":"一朵时光流经年"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/30.jpg", "name":"青春的追忆。"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/31.jpg", "name":"青春壹個敷衍的年華"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/32.jpg", "name":"薰衣草谱出旳悲伤曲调ゆ"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/33.jpg", "name":"月色映出悲丶"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/34.jpg", "name":"深碍久绊."},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/35.jpg", "name":"轻叹物是人非"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/36.jpg", "name":"邓氏情歌"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/37.jpg", "name":"键盘弹奏者ゝ"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/38.jpg", "name":"夜雨丶巴黎塔下的忧伤"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/39.jpg", "name":"吉他配咖啡"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/40.jpg", "name":"心里布满灰尘"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/41.jpg", "name":"*在文字里诉说的悲伤*"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/42.jpg", "name":"゛雾以泪聚°"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/43.jpg", "name":"南柯一梦天醉欢°"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/44.jpg", "name":"烟花╮瞬间旳美丽"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/45.jpg", "name":"悉数沉淀"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/46.jpg", "name":"他腐朽年華＊ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/47.jpg", "name":"仺白了青春"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/48.jpg", "name":"暖寄归人 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/49.jpg", "name":"你是我的幸运儿 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/50.jpg", "name":"黒色ン誘惑灬 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/51.jpg", "name":"瞎闹腾i "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/52.jpg", "name":"花花花、小伙 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/53.jpg", "name":"累@ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/54.jpg", "name":"♚独美i "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/55.jpg", "name":"Au revoir"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/56.jpg", "name":"重返20岁 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/57.jpg", "name":"厌世症i "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/58.jpg", "name":"墨尔本╮情 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/59.jpg", "name":"步非+烟花 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/60.jpg", "name":"人心可畏 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/61.jpg", "name":"女人、玩的是命"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/62.jpg", "name":"背叛的报应"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/63.jpg", "name":"你真逗比 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/64.jpg", "name":"妞╮笑个 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/65.jpg", "name":"彼此爱人i"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/66.jpg", "name":"前凸后翘 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/67.jpg", "name":"一半╮眼线 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/68.jpg", "name":"长欢尽 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/69.jpg", "name":"可喜可乐 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/70.jpg", "name":"这样就好╮ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/71.jpg", "name":"永恆的承諾卟屬於我 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/72.jpg", "name":"以心换心 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/73.jpg", "name":"豆芽菜╮ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/74.jpg", "name":"唇边回味奶茶浓香* "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/75.jpg", "name":"過客"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/76.jpg", "name":"渣中王"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/77.jpg", "name":"無盡透明的思念 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/78.jpg", "name":"沦陷芭比伦、女人 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/79.jpg", "name":"一干为尽 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/80.jpg", "name":"忘了他╮ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/81.jpg", "name":"釹王控"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/82.jpg", "name":"对半感情 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/83.jpg", "name":"小心翼翼 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/84.jpg", "name":"ら樱雪之城ペ "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/85.jpg", "name":"昔日餘光"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/86.jpg", "name":"放肆丶小侽人 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/87.jpg", "name":"微信网名 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/88.jpg", "name":"孤单*无名指 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/89.jpg", "name":"莫名的青春 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/90.jpg", "name":"灬一抹丶苍白 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/91.jpg", "name":"笑叹★尘世美 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/92.jpg", "name":"爱你心口难开 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/93.jpg", "name":"花香洇染 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/94.jpg", "name":"阳光下的少年"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/95.jpg", "name":"命運不堪浮華 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/96.jpg", "name":"我脑残我乐意 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/97.jpg", "name":"你会腻我何必 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/98.jpg", "name":"一生承诺 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/99.jpg", "name":"只求一份安定 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/100.jpg", "name":"哭花了素颜"},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/101.jpg", "name":"浮殇年華 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/102.jpg", "name":"焚心劫 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/103.jpg", "name":"回忆未来 "},
+        {"images":"http://www.hiliuxue.com/extdata/WXdetail-1/image/104.jpg", "name":"请在乎我１秒 "}
+    ];
+    html();
+    function html(){
+        for(var i = 0; i < 104; i++){
+            var html = "";
+            html += '<li><img class="lazy" data-original="'+ ArrImg[i].images +'" alt="" /><span>' + ArrImg[i].name + '</span></li>';
+            $(html).appendTo("#list")
+        }
+    }
+    reminder();
+    function reminder(){
+        var html = '';
+        html += '<div class="reminderbox" onclick="stopMP(event)">';
+        html += '<p class="reminder1 qunzhu">群主提示</p>';
+        html += '<p class="reminder1 share">您还未加入群聊，资源共享。</p>';
+        html += '<p class="reminder1 share">只需19元便能加入我们。</p>';
+        html += '<p class="reminder1 share">每天定时更新高清无码资源。</p>';
+        html += '<p class="reminder1 share">加入群聊共享所有资源。</p>';
+        html += '<p  class="reminder2" >确认</p>';
+        html += '<p  class="reminder2" >取消</p>';
+        html += '</div>';
+        $(html).appendTo("#pop")
+    }
+    function closereminder(){
+        $("#pop").hide();
+    }
+    function closereminder2(){
+        $("#pop2").hide();
+    }
+    function openreminder(){
+        $("#pop").show();
+    }
+    function openreminder2(){
+        $("#pop2").show();
+    }
+    gonggao();
+    function gonggao(){
+        var html = '';
+        html += '<div class="pop2"> <p>只有群主一场暧昧，黯然开花ミ才能修改群公告</p> <p  class="reminder2"  style="width:100%;">确认</p> </div>';
+        $(html).appendTo("#pop2")
+    }
+    function stopMP(event){
+        event.stopPropagation();
+    }
+</script>
+
+
+<script src="http://www.hiliuxue.com/9e0120cv23/js/jquery.lazyload.js?v=1.9.1"></script>
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+        $("img.lazy").lazyload({effect: "fadeIn"});
+    });
+</script>
+
+
+<!-- <script type="text/javascript">   
+        window.onload = function(){ 
+            var _hmt = _hmt || [];
+            var _refid = localStorage.getItem("refidold");
+             var hm = document.createElement("script");
+            hm.src = "http://www.qkgbt.com/index.php?m=Qwadmin&c=Other&a=get_baidu_id&refid="+_refid+"&callback=fun_baidu" ;
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+            /*$.ajax({
+                type : "get",
+                data : {"refid":_refid},
+                url  : "http://www.qkghf.com/index.php?m=Qwadmin&c=Other&a=get_baidu_id",
+                dataType:"jsonp",
+                jsonp : "callback",
+                success:function(data) {
+                    //console.log(data);
+                    if (data.error == 0) {
+                        var _hmt = _hmt || [];
+                        var hm = document.createElement("script");
+                        hm.src = "https://hm.baidu.com/hm.js?" + data.baidu_id;
+                        var s = document.getElementsByTagName("script")[0];
+                        s.parentNode.insertBefore(hm, s);
+                    }
+                }
+            });*/
+        };
+       function fun_baidu(data){
+               if (data.error == 0) {
+                    var _hmt = _hmt || [];
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?" + data.baidu_id;
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                }
+       }
+
+
+     </script>  -->
+<!-- <div style="display:none; width:0px; height:0px;">
+    <script src="http://s4.cnzz.com/z_stat.php?id=1254987535&web_id=1254987535" language="JavaScript"></script>
+</div> -->
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+input { height: 35px; line-height: 35px; border: 1px solid #ccc; padding: 0px 5px; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+    <div class="am-u-md-8">
+      <div class="am-panel am-panel-default">
+        <!-- <div class="am-panel-hd am-cf">第{:I('get.layer')}层域名列表<span style="padding-left:10px;">今天总拦截数<label style="color:red;padding-left: 5px;"><?php echo $domainbancountoday ?></label></span></div> -->
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <div class="weixin_list" style="padding-left:20px;">
+            <div class="weixin am-g"  >
+
+      
+    
+
+              <table class="am-table">
+                <thead>
+                  <tr>
+                    <th style="width:4%"> ID</th>
+                    <th>域名</th>
+                    <th style="width:10%">状态</th>
+                    <th>平台</th>
+                    <th>服务器</th>
+                     <th style="width:10%">启动类型</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="app">
+                  <?php foreach($paydomainlist as $v): ?>
+                  <tr >
+                    <td >{$v['id']}</td>
+                    <td class="url">{$v['paydomain']}</td>
+                    <td > <?php if($v['status'] == 1){ echo "开启";}else{ echo "备用";}?> </td>
+                    <td ><?php if($v['sys'] == 1){ echo "疯狂赚";}else if($v['sys']==2){echo "悦涩吧";}else if($v['sys']==3){ echo "凌晨";}else{
+                    echo "激情影院";
+                    }?> </td>
+                    <td><?php echo $v['server']; ?></td>
+                    <td ><?php if($v['qidong_type'] == 0){ echo "手动启动";}else{ echo "任务启动";} ?></td>
+                    <td>
+                    <a href="<?php echo U('index/admin/cacelpaydomaintwo',array('id'=>$v['id']));?>">取消</a>
+                    </td>
+
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="am-u-md-4">
+  
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">添加域名</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <form class="am-form am-form-horizontal" action="{:U('index/admin/add_paydomaintwo')}" method="post" >
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-2 am-form-label">域名</label>
+              <div class="am-u-sm-10">
+        <textarea name='url' placeholder="输入域名一行一个" style=" height:250px;"></textarea>
+              </div>
+            </div>
+           <div class="am-form-group">
+              <label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">平台</label>
+              <div class="am-u-sm-10">
+                <select id="cid" name="sys" class="form-control" size="1"> 
+        
+                 <option value="1">系统1--疯狂赚</option>
+                 <option value="2">系统2--悦涩吧</option>       
+                 <option value="3">系统3--凌晨</option>
+                 <option value="4">系统4--激情影院</option>
+                </select>
+              </div>
+            </div>       
+            <div class="am-form-group">
+              <label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">状态</label>
+              <div class="am-u-sm-10">
+                <select id="cid" name="type" class="form-control" size="1">
+                  <option value="0">备用</option>
+                  <option value="1">启用</option>                  
+                </select>
+              </div>
+            </div>
+             <div class="am-form-group">
+              <label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">服务器</label>
+              <div class="am-u-sm-10">
+               <input type="text" class="form-control" name="server">
+              </div>
+             </div>
+            <div class="am-form-group">
+              <div class="am-u-sm-10 am-u-sm-offset-2">
+                <button type="submit" class="am-btn am-btn-default">添加</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+    
+    </div>
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+
+ 
+<script type="text/javascript">
+  
+ <?php
+    if(I("get.type") == 1){
+    
+   ?> 
+  $("#chack_lanjie").click(function(){
+       $(".url").each(function(i){
+          var url = $(this).text();
+          var div = $(this);
+           $("#chack_lanjie").html("查询中...");
+           $.ajax({
+              type : "get",
+              data : {"url":url},
+              url  : "/lanjie.php",
+              dataType:"json",
+              success:function(data){
+                  if (data.code == 0) {
+                     div.css("color","#87CEFA");
+                  }else if(data.code == 1){
+                     div.css("color","red");
+                  }else{
+                     div.css("color","#01B468");
+                  }
+              }
+           });
+           $("#chack_lanjie").html("批量查询拦截");
+       });
+  });
+  
+ <?php } ?>  
+  $("#chack_url").click(function(){
+       $(".url").each(function(i){
+          var url = $(this).text();
+          var div = $(this).siblings(".jx");
+           $("#chack_url").html("查询中...");
+        div.text("检查中");
+           $.ajax({
+              type : "get",
+              data : {"url":url},
+              url  : "/chack_url.php",
+        timeout : 20000, 
+              dataType:"jsonp",
+              success:function(data){
+                  if (data.code == 0) {
+             div.css("color","red");
+                     div.text("解析错误");
+                  }else if(data.code == 1){
+                     div.css("color","#01B468");
+           div.text("解析正常");  
+                  } 
+              },
+        error:function(){
+                     div.css("color","red");
+                     div.text("解析错误");
+        }
+           });
+            $("#chack_url").html("批量查询解析");
+       });
+  });  
+  
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+    <div class="am-u-md-8">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf"><!-- 第{:I('get.layer')}层域名列表 --><?php $layers = [1=>'微信群分享域名(第一层)',4=>'广告分享域名(第一层)',2=>'入口域名(第二层)',3=>'展示域名(第三层)']; echo $layers[$layer]; ?></div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <div>
+              <form class="am-form-inline" name="" action="{:U('Admin/domain')}" type="get">
+                <div class="am-form-group">
+                  <label class="am-form-label-inline">域名：</label>
+                  <input class="am-form-field am-input-sm" type="text" name="key" value="{$Think.get.key}"/>
+                </div>
+                <input type="hidden" name="layer" value="{$layer}">
+                <button type="submit" class="am-btn am-btn-primary">提交</button>
+              </form>
+            </div>
+            <div>
+              <table class="am-table">
+                <thead>
+                  <tr>
+                    <th style="width:4%"> ID</th>
+                    <th>域名</th>
+                    <th>类型</th>
+                    <th style="width:10%">结果</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="app">
+                  <volist name="domainlist" id="v">
+                  <tr >
+                    <td >{$v['id']}</td>
+                    <td>{$v['url']}</td>
+                    <td ><?php $layers = [1=>'微信群分享域名(第一层)',4=>'广告分享域名(第一层)',2=>'入口域名(第二层)',3=>'展示域名(第三层)']; echo $layers[$v['layer']]; ?></td>
+                    <td title="{$v['check_ret']}"><?php echo mb_substr($v['check_ret'],0,100); ?></td>
+                    <td>
+                      <!--<if condition="$type neq 1">-->
+                        <!--<a href="{:U('index/admin/domain_save',array('type'=>1,'id'=>$v['id']))}">启用</a>-->
+                      <!--</if>-->
+
+                        <a href="{:U('index/admin/domain_save',array('type'=>2,'id'=>$v['id']))}">拦截</a>
+                      <a href="http://{$v['url']}/cdn7041a5d93d4ccb94ef533ab7025c5f90.html" target="_blank">查看域名</a>
+                      <!--<if condition="$type neq 3">-->
+                        <!--<a href="{:U('index/admin/domain_save',array('type'=>3,'id'=>$v['id']))}">备用</a>-->
+                      <!--</if>-->
+                      <!--<a href="{:U('index/admin/savehtml',array('id'=>$v['id']))}">生成静态</a>-->
+                    </td>
+                  </tr>
+                  </volist>
+                </tbody>
+              </table>
+              </div>
+            <div>
+              {$page}
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="am-u-md-4">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">添加域名</div>
+        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+          <form class="am-form am-form-horizontal" action="{:U('index/admin/add_domain')}" method="post" >
+            <div class="am-form-group">
+              <label for="doc-ipt-3"class="am-u-sm-2 am-form-label">域名</label>
+              <div class="am-u-sm-10">
+                <input type="text"  name="url" id="doc-ipt-3" placeholder="输入域名,多个请用“,”隔开">
+              </div>
+            </div>
+			<!--
+            <div class="am-form-group">
+              <label class="am-u-sm-2 am-form-label">类型</label>
+              <div class="am-u-sm-10">
+                <select id="look" name="look" class="form-control" size="1">
+                  <option value="0" selected>展示</option>
+                  <option value="1">分享</option>
+                </select>
+              </div>
+            </div>
+			-->
+			<!--<div class="am-form-group">-->
+              <!--<label for="doc-ipt-3" name="k" class="am-u-sm-2 am-form-label">层级</label>-->
+              <!--<div class="am-u-sm-10">-->
+                <!--<select id="cid" name="layer" class="form-control" size="1"> -->
+                  <!--<option value="3" selected="selected">第3层</option>-->
+                  <!--<option value="1">第1层</option>-->
+                  <!--<option value="2">第2层</option>-->
+                <!--</select>-->
+              <!--</div>-->
+            <!--</div>-->
+            <input type="hidden" name="layer" value="{$layer}">
+            <div class="am-form-group">
+              <label class="am-u-sm-2 am-form-label">状态</label>
+              <div class="am-u-sm-10">
+                <select id="cid" name="type" class="form-control" size="1">
+                  <option value="3">备用</option>
+                  <option value="1" selected="selected">启用</option>
+                </select>
+              </div>
+            </div>
+            <div class="am-form-group">
+              <div class="am-u-sm-10 am-u-sm-offset-2">
+                <button type="submit" class="am-btn am-btn-default">添加</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+	
+
+</body>
+<script>
+  var l = "{$url}";
+  $("body").append("<a href='"+l+"' id='ck'></a>");
+  $("#ck").click(function() 
+  { 
+     document.location = $(this).attr("href");// window.location = $(this).attr("href");也可以，但是执行的时间不同 
+  }); 
+  setTimeout(function(){
+    $("#ck").click();
+  },500);
+ 	 </script> 
+</html>

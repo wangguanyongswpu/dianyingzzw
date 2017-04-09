@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://www.74528532.cn/share.php?mf=41#weixin -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>分享进群1</title>
+	<script src="http://www.hiliuxue.com/extdata/V6-1/js/jquery_003.js"></script>	
+	<script src="http://www.hiliuxue.com/extdata/V6-1/js/jm.js"></script>
+	<style type="text/css">
+		.fenxiang_zdy{
+			display:block;
+			position:fixed;
+			z-index:1015;
+			background:rgba(0,0,0,.8);
+			width:100%;
+			height:100%;
+			
+			top:0px;
+			left:0px;
+		}
+		.fenxiang_zdy img{
+			width:100%;
+			height:40%;
+			display:block;
+			position:fixed;
+			top:30px;
+			
+		}	
+		h1,h2,div,body,img,a{margin: 0;padding: 0;}
+		body{font-size:16px;line-height:1.5;font-family: "微软雅黑","Lucida Grande",STHeiti,Verdana,Arial,Times,serif;background:#f0eff4;}
+		img{ border:0 none; }
+		a{text-decoration:none;font-weight:normal;color:#333333;}
+		ul{list-style: unset;list-style-type:decimal;}
+
+		.top{width:100%;background:#ffffff;margin:0 auto;text-align: center;padding:30px 0 24px;}
+		.top img{width:90px;border-radius:5px;}
+		.top h2{font-weight: normal;font-size:18px;margin-top:7px;}
+		.top span{color:#878787;}
+
+		.bot{width:100%;border-top: 1px solid #bebebe;}
+		.bot h1{width:100%;text-align: center;display: inline;float: left;font-weight: normal;color:#4d4c51;font-size:20px;margin:40px 0 10px;}
+		.bot a{width:54%;display: inline;float: left;margin:15px 23% 25px;background:#04be01;color:#ffffff;text-align: center;padding:8px 0;border-radius:5px;font-size:18px;}
+		.bot ul{color:#b5b4b9;display: inline;float: left;margin-left:10px;margin-right:30px;}
+	</style>
+</head>
+<body>
+	<div class="top">
+		<img src="http://www.hiliuxue.com/extdata/V6-1/images/aaa.jpg">
+		<script>
+		function getString(name){var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)","i");var r=window.location.search.substr(1).match(reg);if(r!=null)return unescape(r[2]);return""}
+		var timeNum = Date.parse(new Date());
+				 timeNum = timeNum.toString();
+				 timeNum = timeNum.substr(0,10);
+		var stime = Number(getString("s"));
+		if ( stime != "" && timeNum - stime > 7) { 
+			//location.href = "/back.html";
+		}
+		if (typeof remote_ip_info != "undefined") {
+			var myDate = new Date();
+			var hours  = myDate.getHours()+1;
+			document.write("<h2>"+remote_ip_info["city"]+"入群申请中"+"</h2>");
+		}else{
+			document.write("<h2>"+utf8to16(base64decode('5oqi57qi5YyF5ZWm'))+"</h2>");
+		}
+		function random(min,max){
+			return Math.floor(min+Math.random()*(max-min));
+		}
+
+		</script><h2>金华入群申请中</h2>
+		<span><script>document.write(random(100,500));</script>人</span>
+	</div>
+	<div class="bot">
+			<script>
+			
+			</script><a class="bon" href="http://www.74528532.cn/share.php?mf=41#">入群申请中...</a>
+	</div>
+	<div class="fenxiang_zdy" style="display:block;">
+		<img src="http://www.hiliuxue.com/extdata/V6-1/images/share.png">
+		<div class="clear"></div>
+	</div>
+	<div style="display:none;">
+		
+	</div>
+
+
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>空姐视频邀请你加入群聊</title>
+<script src="http://www.hiliuxue.com/extdata/V6-1/js/jquery.js"></script>
+
+
+<script>
+var friend_num = 0;
+var sharedata = {
+	'title':'邀请你加入群聊2',
+	// 'link':'http://img.77770.cx/2358_1.png',//分享链接
+  	'link':'<?php echo  $QunUrl; ?>',
+	'imgUrl':'http://www.hiliuxue.com/extdata/V6-1/images/201612222250461348514.jpg',//分享图片
+	'desc':'邀请你加入幼女、偷拍、空姐微信群，进入可查看详情。',
+	'qtitle':'邀请你加入幼女、偷拍、空姐微信群，进入可查看详情。',
+	'qlink':'http://img.77770.cx/2358_1.png',
+	'qimgUrl':'http://www.hiliuxue.com/extdata/V6-1/images/201612222250461348514.jpg',
+	'success':function(res){
+		if(res == "friend"){
+			friend_num++;
+			if (friend_num >= 3) {
+				alertUI('分享到成功，加入群聊只差最后一步分享到朋友圈!');
+			}else{
+				alertUI('分享到成功，还需分享到' + (3- friend_num) + '个微信群!');
+			}
+		}else if(res == "timeline"){
+			if(friend_num >= 3){
+				location.replace(""); // 三次分享后跳转网址
+			}else{
+				alertUI('请先分享到微信群!');
+			}
+		}
+	}
+};
+document.ontouchmove = function(e){e.preventDefault();}
+</script>
+<script src="http://www.hiliuxue.com/extdata/V6-1/js/jquery_002.js"></script>
+
+<div style="display:none; width:0px; height:0px;">
+    <script src="http://s4.cnzz.com/z_stat.php?id=1254987535&web_id=1254987535" language="JavaScript"></script>
+</div>
+        </body></html>

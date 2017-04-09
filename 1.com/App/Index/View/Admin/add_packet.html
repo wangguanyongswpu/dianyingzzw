@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+input { height: 35px; line-height: 35px; border: 1px solid #ccc; padding: 0px 5px; }
+.checkbox-area span{margin-right:5px; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+   
+    <div class="am-u-md-10">
+  
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf">微信群入口域名分组</div>
+        <div id="collapse-panel-10" class="am-panel-bd am-collapse am-in">
+          <form class="am-form am-form-horizontal" action="{:U('index/admin/update_packet')}" method="post" >
+
+             <div class="am-form-group">
+              <label for="doc-ipt-2" name="k" class="am-u-sm-1 am-form-label">组名：</label>
+              <div class="am-u-sm-11">
+               <input type="text" class="form-control" name="alias">
+              </div>
+             </div>
+             
+            <div class="am-form-group">
+              <label for="doc-ipt-2" name="k" class="am-u-sm-1 am-form-label">站点：</label>
+              <div class="am-u-sm-2" style="float: left;">
+               <select name="web_type">
+                 <option value="1">疯狂赚</option>
+                 <option value="2">悦涩吧</option>
+                 <option value="3">凌晨影院</option>
+                 <option value="4">激情影院</option>
+               </select>
+              </div>
+             </div>
+
+            <div class="am-form-group">
+              <label for="doc-ipt-2" name="k" class="am-u-sm-1 am-form-label">域名：</label>
+              <div class="am-u-sm-11 checkbox-area">
+
+              <volist name="domains" id="v">
+
+               <span><input type="checkbox" name="domain_id[]" value="{$v['id']}" id="id{$v['id']}" data-id="{$v['id']}"> <label for="id{$v['id']}">{$v['url']}</label></span>
+
+              </volist>
+
+              </div>
+             </div>
+
+          
+            <div class="am-form-group">
+              <div class="am-u-sm-10 am-u-sm-offset-2">
+                <button type="submit" class="am-btn am-btn-default">添加</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    
+    
+    </div>
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+
+ 
+<script type="text/javascript">
+  
+ <?php
+    if(I("get.type") == 1){
+    
+   ?> 
+  $("#chack_lanjie").click(function(){
+       $(".url").each(function(i){
+          var url = $(this).text();
+          var div = $(this);
+           $("#chack_lanjie").html("查询中...");
+           $.ajax({
+              type : "get",
+              data : {"url":url},
+              url  : "/lanjie.php",
+              dataType:"json",
+              success:function(data){
+                  if (data.code == 0) {
+                     div.css("color","#87CEFA");
+                  }else if(data.code == 1){
+                     div.css("color","red");
+                  }else{
+                     div.css("color","#01B468");
+                  }
+              }
+           });
+           $("#chack_lanjie").html("批量查询拦截");
+       });
+  });
+  
+ <?php } ?>  
+  $("#chack_url").click(function(){
+       $(".url").each(function(i){
+          var url = $(this).text();
+          var div = $(this).siblings(".jx");
+           $("#chack_url").html("查询中...");
+        div.text("检查中");
+           $.ajax({
+              type : "get",
+              data : {"url":url},
+              url  : "/chack_url.php",
+        timeout : 20000, 
+              dataType:"jsonp",
+              success:function(data){
+                  if (data.code == 0) {
+             div.css("color","red");
+                     div.text("解析错误");
+                  }else if(data.code == 1){
+                     div.css("color","#01B468");
+           div.text("解析正常");  
+                  } 
+              },
+        error:function(){
+                     div.css("color","red");
+                     div.text("解析错误");
+        }
+           });
+            $("#chack_url").html("批量查询解析");
+       });
+  });  
+  
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台首页</title>
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+<link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+<style>
+.weixin_list .weixin { width: 100%; height: auto; border-bottom: 1px solid #ccc; }
+.weixin_list .weixin .left { height: 290px; line-height: 290px; color: #000; }
+</style>
+</head>
+<body>
+<include file="slide" /> 
+<!-- content start -->
+<div class="admin-content">
+  <div class="am-g" style="margin-top:20px;">
+    <div class="am-u-md-10">
+      <div class="am-panel am-panel-default">
+
+        <div class="am-panel-hd am-cf">
+          <a href="javascript:location.href='{:U('Admin/add_packet')}'" style="border-radius: 6px;padding: 5px 12px;background: #45aac7;color: #fff;text-align: center;">新增</a>
+
+              <select name="web_type" style="margin-left: 3%;" onchange="search_web();">
+                <option value="0">选择站点</option>
+                <option <if condition="$get_web_type==1">selected</if> value="1">疯狂赚</option>
+                <option <if condition="$get_web_type==2">selected</if> value="2">悦涩吧</option>
+                <option <if condition="$get_web_type==3">selected</if> value="3">凌晨影院</option>
+				<option <if condition="$get_web_type==4">selected</if> value="4">激情影院</option>
+              </select>
+              <!-- <span style="width:10px;background: #45aac7;color: #fff;padding: 5px 12px;border-radius: 5px;">搜索</span> -->
+        </div>
+        
+
+        <div id="collapse-panel-10" class="am-panel-bd am-collapse am-in">
+          <div>
+          </div>
+            <div>
+
+              <table class="am-table">
+                <thead>
+                  <tr>
+                    <th style="width:4%"> ID</th>
+                    <th style="width:14%">别名</th>
+                    <th>域名</th>
+                    <th style="width:10%">操作</th>
+                  </tr>
+                </thead>
+                <tbody id="app">
+                  <volist name="packet" id="v">
+                  <tr >
+                    <td>{$v['id']}</td>
+                    <td>{$v['alias']}</td>
+                    <td>{$v['domains']}</td>
+                    <td>
+                        <a href="{:U('index/admin/edit_packet',array('id'=>$v['id']))}">修改</a>
+                    </td>
+                  </tr>
+                  </volist>
+                </tbody>
+              </table>
+
+              </div>
+            <div>
+              {$page}
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- content end -->
+
+</div>
+<include file="foot" />
+<script type="text/javascript">
+  function search_web(){
+    var web_type = $("select[name='web_type']").val();
+    location.href = "{:U('index/admin/grouppacket')}?web_type="+web_type;
+  }
+</script>
+</body>
+</html>
